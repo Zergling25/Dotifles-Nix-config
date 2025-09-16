@@ -1,0 +1,87 @@
+{ pkgs, inputs, ... }:
+
+{
+  imports = [ ./niri.nix ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  environment.systemPackages = with pkgs; [
+    # System Utilities
+    curl
+    cpufrequtils
+    ffmpeg
+    glib
+    gsettings-qt
+    git
+    killall
+    libappindicator
+    libnotify
+    pciutils
+    vim
+    wget
+    xdg-user-dirs
+    xdg-utils
+
+    # Terminal & CLI
+    helix
+    wezterm
+    fastfetch
+
+    # Apps for your Laptop
+    gparted
+  ];
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    fira-code
+    noto-fonts-cjk-sans
+    jetbrains-mono
+    font-awesome
+    terminus_font
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+  ];
+    services.gvfs.enable = true;
+    services.tumbler.enable = true;
+  programs = {
+    # Browsers & Editors
+    firefox.enable   = true;
+
+    # Version Control
+    git.enable       = true;
+
+    # Network Manager tray icon
+    nm-applet.indicator = true;
+
+    # File manager
+    thunar.enable  = true;
+    thunar.plugins = with pkgs.xfce; [
+      exo
+      mousepad
+      thunar-archive-plugin
+      thunar-volman
+      tumbler
+    ];
+    
+    # Optional Services
+    virt-manager.enable   = true;
+    dconf.enable          = true;
+    #seahorse.enable       = false;
+
+    # GPG/SSH Agent
+    gnupg.agent = {
+      enable           = false;
+      enableSSHSupport = false;
+    };
+  };
+
+  xdg.portal = {
+    enable        = true;
+    extraPortals  = [ pkgs.xdg-desktop-portal-gtk ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal
+    ];
+  };
+}
+
