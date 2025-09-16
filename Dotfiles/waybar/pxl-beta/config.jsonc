@@ -1,0 +1,254 @@
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "modules-left": [
+      "mpris",
+      "custom/To-Do",
+      "custom/tuned"
+     // "custom/cava"
+    // "custom/tuned"
+    ],
+    "modules-center": [
+      "niri/workspaces"
+    ],
+    "modules-right": [
+      "cpu",
+      "memory",
+      "clock"
+    ],
+
+ "custom/To-Do": {
+        "exec": "~/.config/waybar/Scripts/to-do.sh",
+        "return-type": "json",
+        "format": "  {} To-Do",
+        "on-click": "kitty -e helix ~/To-Do.txt",
+        "interval": 5
+    },
+
+    "custom/cava": {
+      "exec": "$HOME/.config/waybar/Scripts/WaybarCava.sh",
+      "format": "{} "
+    },
+
+    "custom/tuned": {
+    "exec": "python3 $HOME/.config/waybar/Scripts/tuned_profile.py",  
+    //"interval": 15, 
+    "format": "{}",
+		"return-type": "json"
+	},
+
+    "mpris": {
+      "format": "[ {player_icon} ]",
+      "format-paused": "[ ▶ ]",
+      // "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
+      "max-length": 16,
+      "player-icons": {
+        "default": "⏸"
+      },
+      "status-icons": {
+        "format": "[ {player_icon} ]",
+        "paused": "[ ▶ ]"
+      }
+    },
+    "niri/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "urgent": "‼",
+      "default": "○"
+    },
+      "persistent-workspaces": {
+        "*": 10
+      }
+    },
+    "cpu": {
+      "format": "  {usage}%  ",
+      "interval": 5
+    },
+    "memory": {
+      "format": "  {}%  ",
+      "tooltip-format": "{used:0.1f}G/{total:0.1f}G",
+      "interval": 5
+    },
+    "clock": {
+      "format": "  {:%a %B %d  󰥔  %I:%M %p}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    }
+  },
+  {
+    "layer": "top",
+    "position": "bottom",
+    "reload_style_on_change": true,
+    "modules-left": [
+      "custom/start",
+      "group/power"
+    ],
+    "modules-center": [
+      "wlr/taskbar"
+    ],
+    "modules-right": [
+      "group/backlight",
+      "group/pulseaudio",
+      "bluetooth",
+      "network",
+      "battery",
+      "tray"
+    ],
+    "custom/start": {
+      "format": "{icon}",
+      "tooltip": false,
+      "on-click": "rofi -show drun -modi drun -location 7 -xoffset 5 -yoffset 10 -b -width 10 -lines 10 -padding 10",
+      "format-icons": [
+        "APPS"
+      ]
+    },
+   "group/power": {
+  "orientation": "horizontal", // 👈 This makes it expand vertically (like a dropdown)
+  "drawer": {
+    "transition-duration": 500
+  },
+  "modules": [
+    "custom/power_button",
+    "custom/poweroff",
+    "custom/reboot",
+    "custom/logout",
+    "custom/exit"
+  ]
+},
+"custom/power_button": {
+  "format": "POWER",
+  "tooltip": "Click to toggle power menu"
+},
+"custom/poweroff": {
+  "format": "⏻ Poweroff",
+  "on-click": "systemctl poweroff",
+  "tooltip": "Shutdown the system"
+},
+"custom/reboot": {
+  "format": " Reboot",
+  "on-click": "systemctl reboot",
+  "tooltip": "Reboot the system"
+},
+"custom/logout": {
+  "format": "󰗽 Logout",
+  "on-click": "loginctl terminate-user $USER",
+  "tooltip": "Log out the session"
+},
+"custom/exit": {
+  "format": "󰤆 Exit Niri",
+  "on-click": "pkill niri",
+  "tooltip": "Exit Niri"
+},
+
+    "wlr/taskbar": {
+      "all-outputs": false,
+      "format": "{icon} {name}",
+      "tooltip-format": "",
+      "ignore-list": [],
+      "on-click": "activate"
+    },
+    "group/backlight": {
+      "orientation": "inherit",
+      "drawer": {
+        "transition-duration": 500
+      },
+      "modules": [
+        "backlight",
+        "backlight/slider"
+      ]
+    },
+    "group/pulseaudio": {
+      "orientation": "inherit",
+      "drawer": {
+        "transition-duration": 500
+      },
+      "modules": [
+        "pulseaudio",
+        "pulseaudio/slider"
+      ]
+    },
+    "backlight": {
+      "scroll-step": 5,
+      "format": "{icon}",
+      "format-alt": "{icon} {percent}",
+      "format-icons": [
+        "󰃞",
+        "󰃟",
+        "󰃠"
+      ]
+    },
+    "backlight/slider": {
+      "min": 5,
+      "max": 100,
+      "orientation": "horizontal"
+    },
+    "pulseaudio": {
+      "scroll-step": 5,
+      "format": "{icon} ",
+      "format-bluetooth": "{icon} ",
+      "format-bluetooth-muted": "󰝟 ",
+      "format-muted": " 󰝟 ",
+      "format-icons": {
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pavucontrol"
+    },
+    "pulseaudio/slider": {
+      "min": 0,
+      "max": 100,
+      "orientation": "horizontal"
+    },
+    "bluetooth": {
+      "format": " ",
+      "format-disabled": "󰂲 ",
+      "format-connected": " ",
+      "tooltip-format": "{controller_alias}\t{controller_address}",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "on-click": "kitty bluetoothctl"
+    },
+    "battery": {
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon}  ",
+      "format-charging": " {capacity}% ",
+      "format-plugged": " {capacity}% ",
+      "format-alt": "{icon} {capacity}% ",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "network": {
+      "format-wifi": " ",
+      "format-ethernet": "󰈀 {ifname}",
+      "tooltip-format": "󰈀 {ifname} via {gwaddr}",
+      "format-linked": "  {ifname} (No IP)",
+      "format-disconnected": "󰖪",
+      "on-click": "kitty nmtui"
+    },
+    "tray": {
+      "spacing": 8
+    }
+  }
+]
+

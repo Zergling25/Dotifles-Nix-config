@@ -1,0 +1,185 @@
+[
+  {
+    "name": "topbar",
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": [
+      "battery",
+      "disk",
+      "memory",
+      "cpu",
+      "temperature",
+      "pulseaudio",
+      "backlight",
+      "idle_inhibitor"
+    ],
+    "modules-center": ["custom/playerctl"],
+    "modules-right": [
+      "network",
+      "clock",
+      "custom/poweroff"
+    ],
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
+    },
+    "clock": {
+      "interval": 1,
+      "format": "<b>{:%A, %B %d | %I:%M:%S %p}</b>",
+      "format-alt": "{:%Y-%m-%d}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+      "format": " {usage}%",
+      "tooltip": true,
+      "interval": 3
+    },
+    "disk": {
+      "format": " {}%",
+      "tooltip-format": "{used} / {total} used"
+    },
+    "memory": {
+      "format": " {}%",
+      "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
+    },
+    "temperature": {
+      "interval": 2,
+      "tooltip": true,
+      "hwmon-path": [
+        "/sys/class/hwmon/hwmon7/temp1_input",
+        "/sys/class/thermal/thermal_zone0/temp"
+      ],
+      "critical-threshold": 82,
+      "format-critical": "{icon}\u2004{temperatureC}°C",
+      "format": "{icon}\u2004{temperatureC}°C",
+      "format-icons": ["", "", "", "", ""]
+    },
+    "backlight": {
+      "format": "{icon} {percent}%",
+      "format-icons": [
+        "", "", "", "", "", "", "", "", ""
+      ]
+    },
+    "battery": {
+      "bat": "BAT0",
+      "adapter": "AC",
+      "interval": 10,
+      "full-at": 100,
+      "states": {
+        "full": 100,
+        "good": 99,
+        "empty": 5
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-empty": "",
+      "format-full": "",
+      "format-icons": ["", "", "", "", ""]
+    },
+    "custom/playerctl": {
+      "format": "{}",
+      "return-type": "json",
+      "max-length": 30,
+      "exec": "playerctl -a metadata --format '{\"text\": \"{{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+      "on-click": "playerctl play-pause",
+      "on-click-right": "playerctl next",
+      "on-click-middle": "playerctl previous",
+      "scrolling": true,
+      "scroll-step": 1.0,
+      "smooth-scrolling-threshold": 1
+    },
+    "network": {
+      "format-wifi": " {essid} ({signalStrength}%)",
+      "interval": 15,
+      "format-disconnected": "",
+      "on-click": "nm-connection-editor"
+    },
+    "pulseaudio": {
+      "scroll-step": 1,
+      "format": "{icon} {volume}%{format_source} ",
+      "format-bluetooth": "{icon} {volume}%{format_source} ",
+      "format-bluetooth-muted": " {icon}{format_source} ",
+      "format-muted": " {format_source} ",
+      "format-source": "  {volume}%",
+      "format-source-muted": " ",
+      "format-icons": {
+        "headphone": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      },
+      "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+ && ~/.config/waybar/Scripts/wp-vol.sh",
+      "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && ~/.config/waybar/Scripts/wp-vol.sh"
+    },
+    "custom/poweroff": {
+      "format": "⏻\u200A\u200A\u200A\u200A",
+      "tooltip": false,
+      "menu": "on-click",
+      "menu-file": "~/.config/waybar/Scripts/power_menu.xml",
+      "menu-actions": {
+        "shutdown": "poweroff",
+        "reboot": "reboot",
+        "suspend": "systemctl suspend",
+        "exit-niri": "pkill niri",
+        "hibernate": "systemctl hibernate"
+      }
+    },
+    "custom/cava": {
+  "exec":  "~/.config/waybar/Scripts/WaybarCava.py",
+  //"interval": 0.1
+  //"format": "{}"
+  "on-click": "playerctl play-pause",
+  "on-click-right": "playerctl next",
+  "on-click-middle": "playerctl previous",
+  "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+ && ~/.config/waybar/Scripts/wp-vol.sh",
+  "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && ~/.config/waybar/Scripts/wp-vol.sh"
+},
+ "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "firefox": "",
+            "vlc": "󰕼",
+	        "mpv": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/Scripts/mediaplayer.py 2> /dev/null",
+        "on-click": "playerctl play-pause",
+        "on-double-click": "playerctl next",
+        "on-click-right": "playerctl previous"
+    },
+  },
+  {
+    "name": "bottombar",
+    "layer": "top",
+    "position": "bottom",
+    "height": 30,
+    "modules-left": ["tray"],
+    "modules-center": ["wlr/taskbar"],
+    "modules-right": ["niri/workspaces"],
+    "tray": {
+      "icon-size": 13,
+      "spacing": 10
+    },
+    "wlr/taskbar": {
+      "format": "{icon} {name}",
+      "icon-size": 13,
+      "tooltip": false,
+      "on-click": "activate",
+      "on-click-right": "close",
+      "app_ids-mapping": {
+        "gnome-terminal-server": "org.gnome.Terminal"
+      }
+    }
+  }
+]
+

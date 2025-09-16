@@ -1,0 +1,127 @@
+/* === Global Text Styling — Adaptive Contrast === */
+* {
+  min-height: 0;
+  min-width: 0;
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 16px;
+  font-weight: 700;
+  color: #c1c1c1; /* base05 */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5),
+               0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* === Fully Transparent Waybar Container === */
+window#waybar {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 2px 6px;
+}
+
+/* === Transparent Modules — Minimal Padding === */
+#workspaces,
+#system-expander,
+#custom-mpris,
+#window,
+#tray,
+#tray-expander,
+#hardware-expander,
+#pulseaudio,
+#cpu,
+#memory,
+#network,
+#clock,
+#custom-power,
+#custom-uptime,
+#battery,
+#custom-system-label,
+menu,
+menubar,
+tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 2px 6px;
+  margin: 0 2px;
+}
+
+/* === Workspace Buttons — No Background, Tight Padding === */
+#workspaces button {
+  background: transparent;
+  border: none;
+  padding: 2px 6px;
+  margin: 0 4px;
+  transition: color 0.2s ease, border-bottom 0.2s ease, background-color 0.2s ease;
+  color: #c1c1c1; /* base05 */
+}
+
+/* === Active Workspace — Solid Accent & Underline === */
+#workspaces button.active {
+  color: #5f8787; /* base08 */
+  border-bottom: 2px solid #c1c1c1; /* base05 */
+  background-color: rgba(193, 193, 193, 0.25); /* base05 w/ alpha */
+  font-weight: 800;
+}
+
+/* === Hover Effect for Active Button === */
+#workspaces button.active:hover {
+  color: #ffffff; /* Pure white highlight */
+  border-bottom: 2px solid #ffffff;
+  background-color: rgba(193, 193, 193, 0.25);
+}
+
+/* === Urgent Workspace === */
+#workspaces button.urgent {
+  color: #ffffff;
+  border-bottom: 2px solid rgba(160, 102, 102, 0.8); /* base0A w/ alpha */
+  background-color: rgba(160, 102, 102, 0.2);
+}
+
+/* === Hover Effect — Inactive Buttons === */
+#workspaces button:hover:not(.active) {
+  color: #ffffff;
+  background-color: rgba(193, 193, 193, 0.1); /* base05 w/ alpha */
+}
+
+/* === Custom MPRIS Highlight === */
+#custom-mpris {
+  color: #dd9999; /* base0B */
+}
+
+/* === Tray Padding === */
+#tray {
+  padding-left: 6px;
+}
+
+/* === Tooltip Styling — Minimalist === */
+tooltip {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  color: #c1c1c1; /* base05 */
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5),
+               0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+tooltip label {
+  margin: -2px 0;
+  border: 0;
+}
+
+/* === Menu Items === */
+menuitem {
+  background: transparent;
+  border: none;
+  padding: 2px 6px;
+  margin: 0 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  color: #c1c1c1; /* base05 */
+}
+
+menuitem:hover,
+menuitem:focus,
+menuitem:active {
+  color: #ffffff;
+  background-color: rgba(170, 170, 170, 0.1); /* base09 w/ alpha */
+}
+

@@ -1,0 +1,113 @@
+{
+    "layer": "top",
+    "modules-left": ["niri/workspaces", "mpris"],
+    "modules-center": ["clock"],
+    "modules-right": [ "tray", "network", "pulseaudio", "battery"],
+   
+    "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 ░░░MUTE░░░ {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "on-click": "pavucontrol",
+    "format-icons": [
+      "󰕿 ░░░░░░░░░░", 
+      "󰕿 █░░░░░░░░░", 
+      "󰕿 ██░░░░░░░░", 
+      "󰖀 ███░░░░░░░", 
+      "󰖀 ████░░░░░░", 
+      "󰖀 █████░░░░░", 
+      "󰕾 ██████░░░░", 
+      "󰕾 ███████░░░", 
+      "󰕾 ████████░░", 
+      "󱄡 █████████░", 
+      "󱄡 ██████████"  
+    ]
+    },
+    
+    "niri/workspaces": {
+      "format": "{icon}",
+      "format-icons":{
+        "active":"󰣇",
+        "default":""
+
+        },
+      "all-outputs": false
+    },
+
+    "niri/window": {
+      "format": "{}",
+      "seperate-outputs": true,
+      //"icon": true
+
+    },
+
+    "mpris": {
+    	"format": "{player_icon}",
+    "format-paused": " ▶ ",
+    // "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
+    "max-length": 16,
+    "player-icons": {
+      "default": "⏸"
+    },
+    "status-icons": {
+    "format": " {player_icon} ",
+      "paused": " ▶ "
+    }
+    // "ignored-players": ["firefox"]
+    },
+    "clock": {
+         "format": " 󱑏 {:%H:%M %p} ",
+    "format-alt": " {:%Y-%m-%d} ",
+    "tooltip": false
+    },
+    "tray": {
+    	"spacing": 12
+    },
+    
+    "memory": {
+        "format": "   {percentage}% ",
+        "interval": 1
+    },
+    "cpu": {
+        "format": "   {usage}% ",
+        "interval": 1
+    },
+
+"network": {
+    "tooltip": false,
+    "format": " {icon} ",
+    "format-ethernet": " 󰈀 ",
+    "format-disconnected": " 󰤫  ",
+    "on-click": "wezterm nmtui",
+    "format-icons":[ 
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ]
+  },
+
+    "battery": {
+    	"states": {
+      "critical": 15
+    },
+    "tooltip": false,
+    "format": "{icon} {capacity}%",
+    "format-charging": " {icon} {capacity}%",
+    "interval": 5,
+    "format-icons": [
+      "󰂎 ░░░░░░░░░░",
+      "󰂎 █░░░░░░░░░",
+      "󱊡 ██░░░░░░░░",
+      "󱊡 ███░░░░░░░",
+      "󱊢 ████░░░░░░",
+      "󱊢 █████░░░░░",
+      "󱊢 ██████░░░░",
+      "󱊢 ███████░░░",
+      "󱊣 ████████░░",
+      "󱊣 █████████░",
+      "󱈏 ██████████"
+    ]
+    }
+}

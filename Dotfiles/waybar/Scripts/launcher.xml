@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+<child>
+		<object class="GtkMenuItem" id="firefox">
+			<property name="label"> Firefox</property>
+        </object>
+	</child>
+	<child>
+		<object class="GtkMenuItem" id="kitty">
+			<property name="label">󰄛 Kitty</property>
+        </object>
+	</child>
+	<child>
+        <object class="GtkMenuItem" id="helix">
+			<property name="label">󰚄 Helix</property>
+        </object>
+	</child>
+    <child>
+        <object class="GtkMenuItem" id="thunar">
+			<property name="label"> Thunar</property>
+        </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="delimiter1"/>
+    </child>
+    <child>
+		<object class="GtkMenuItem" id="gedit">
+			<property name="label"> Gedit</property>
+		</object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,77 @@
+@define-color foreground #eeeeee;
+@define-color foreground-inactive #aaaaaa;
+@define-color background #000000;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 17px;
+  padding: 0;
+  margin: 0;
+}
+/* ____ Workspaces (merged style) ____ */
+#workspaces {
+    background: @primary_container; /* from first snippet */
+    margin: 3px 3px;
+    padding: 8px 5px;
+    border-radius: 16px;
+    border: solid 1px @on_primary_container; /* border from second, themed */
+}
+
+#workspaces button {
+    min-width: 6px;
+    min-height: 6px;
+    padding: 0;
+    margin: 0 3px;
+    border-radius: 50%;
+    background-color: @on_primary_container; /* themed instead of #aaaaaa */
+    color: @on_primary_container;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active,
+#workspaces button:hover {
+    color: @on_primary; /* themed hover text */
+    background-color: @primary; /* themed hover background */
+    border-radius: 20px;
+    min-width: 30px;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button label {
+    font-size: 0px;
+}
+
+
+#memory,
+#custom-platform-profile {
+  padding-left: 1em;
+}
+
+#wireplumber,
+#battery,
+#idle_inhibitor,
+#language,
+#network,
+#bluetooth,
+#tray,
+#custom-power,
+#custom-mpris,
+#mpris,
+#custom-cava2,
+#custom-cava,
+#custom-playerctl {
+  padding-right: 1em;
+}
+
+
+
+menu {
+  border-radius: 15px;
+  background-color: @background;
+  color: @foreground;
+}
+
+menuitem {
+  border-radius: 15px;
+}
+

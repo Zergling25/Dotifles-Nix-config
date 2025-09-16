@@ -1,0 +1,90 @@
+/* Reset all styles */
+* {
+  all: unset;
+}
+
+/* Window and box styling */
+window > box {
+  font-family: "CaskaydiaCove Nerd Font";
+  margin: 3px 0px 3px 3px; /* Reduced margin */
+   padding: 0px 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: #2a292d; */
+}
+
+/* Workspaces container */
+#workspaces {
+  /*padding: 3px 6px;*/
+  margin: 0px;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Workspaces buttons */
+#workspaces button {
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 18px; /* Smaller font */
+  background: rgba(0, 0, 0, 0);
+  /* color: #ff4c4c; */
+  /* margin: 10px; */
+  /* padding: 6px 6px; */
+}
+
+/* Common module styling */
+#clock,
+#battery,
+#tray,
+#pulseaudio,
+#custom-power,
+#custom-todo,
+#custom-launcher {
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 14px; /* Optional: smaller font */
+  padding: 3px 6px; /* Reduced padding */
+  margin: 0px;
+  background: rgba(0, 0, 0, 0);
+  /* color: #ff4c4c; */
+}
+
+/* MPRIS module */
+#mpris {
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 14px; /* Smaller font */
+  padding: 3px 6px; /* Reduced padding */
+  margin: 0px;
+  background: rgba(0, 0, 0, 0);
+  /* color: #ff4c4c; */
+}
+
+/* Waybar menu popup */
+menu {
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 12px; /* Smaller font */
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px 6px; /* Reduced padding */
+  border: 1px solid #2a292d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  /* color: #ff4c4c; */
+}
+
+/* Individual menu items */
+menuitem {
+  padding: 4px 8px; /* Reduced padding */
+  border-radius: 4px;
+  margin: 1px 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover/focus states */
+menuitem:hover,
+menuitem:focus {
+  background-color: #2a292d;
+  /* color: #ff4c4c; */
+}
+
+/* Active (pressed) state */
+menuitem:active {
+  background-color: #2a292d;
+}
+

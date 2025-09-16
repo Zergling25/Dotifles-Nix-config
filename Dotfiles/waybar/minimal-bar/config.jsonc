@@ -1,0 +1,117 @@
+{
+  "name": "sidebar",
+  "layer": "top",
+  "position": "top",
+  "spacing": 10, // even gap between modules within each group (vertical in your case)
+
+  "modules-left":[
+    "clock",
+    "custom/todo",
+    "mpris"
+    //"custom/launcher"
+  ],
+  "modules-center": [
+    "niri/workspaces"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "tray",
+    "battery",
+    "custom/power"
+  ],
+
+  "niri/workspaces": {
+    "disable-scroll": true,
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "active": "⛧",
+      "default": "⛤"
+    },
+    "sort-by-number": true
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:%I:%M:%OS:%p}",
+    "format-alt": "{:%m:%d:%y:%a}"
+  },
+
+  "battery": {
+    "states": {"warning": 30, "critical": 15 },
+    "format": "{icon}:{capacity}%",
+    "format-charging": "pwr:{capacity}% ",
+    "format-plugged": "pwr:{capacity}% ",
+    "format-icons": ["bat"]
+  },
+
+  "pulseaudio": {
+    "format": "{icon}:{volume}%",
+    "format-muted": "",
+    "format-bluetooth": "{icon}:{volume}%",
+    "on-click": "pavucontrol",
+    "format-icons": ["vol"]
+  },
+
+  "tray": {
+    "icon-size": 18,   // keeps tray icons uniform
+    "spacing": 6       // vertical gap between tray icons
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/Scripts/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "poweroff",
+      "reboot": "reboot",
+      "suspend": "systemctl suspend",
+      "hibernate": "systemctl hibernate",
+      "exit-niri": "pkill niri"
+    }
+  },
+
+  "custom/launcher": {
+    "format": "󱓞",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/Scripts/launcher.xml",
+    "menu-actions": {
+      "firefox": "firefox & disown",
+      "kitty": "kitty & disown",
+      "helix": "kitty helix & disown",
+      "thunar": "thunar & disown",
+      "gedit": "gedit & disown"
+    }
+  },
+
+  "custom/todo": {
+    "format": "",
+    "on-double-click": "python3 -u ~/.config/waybar/Scripts/to-do-make.py",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/Scripts/todo.xml",
+    "menu-actions": {
+      "refresh_waybar": "python3 -u ~/.config/waybar/Scripts/to-do-make.py && killall -SIGUSR2 waybar",
+      "edit_todo": "kitty helix ~/To-Do.txt",
+      "task_0": "python3 ~/.config/waybar/Scripts/toggle_task.py 0 && python3 -u ~/.config/waybar/Scripts/to-do-make.py && killall -SIGUSR2 waybar",
+      "task_1": "python3 ~/.config/waybar/Scripts/toggle_task.py 1 && python3 -u ~/.config/waybar/Scripts/to-do-make.py && killall -SIGUSR2 waybar",
+      "task_2": "python3 ~/.config/waybar/Scripts/toggle_task.py 2 && python3 -u ~/.config/waybar/Scripts/to-do-make.py && killall -SIGUSR2 waybar",
+      "task_3": "python3 ~/.config/waybar/Scripts/toggle_task.py 3 && python3 -u ~/.config/waybar/Scripts/to-do-make.py && killall -SIGUSR2 waybar",
+      "task_4": "python3 ~/.config/waybar/Scripts/toggle_task.py 4 && python3 -u ~/.config/waybar/Scripts/to-do-make.py && killall -SIGUSR2 waybar"
+    }
+  },
+
+  "mpris": {
+    "format": "{player_icon}",
+    "format-paused": "󰨛",
+    "max-length": 24,
+    "player-icons": { "default": "󰗜" },
+    "status-icons": {
+      "format": "{player_icon}",
+      "paused": "󰨛"
+    }
+  }
+}
+

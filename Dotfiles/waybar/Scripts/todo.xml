@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<interface><object class="GtkMenu" id="menu"><child><object class="GtkSeparatorMenuItem" id="delimiter1" /></child><child><object class="GtkMenuItem" id="edit_todo"><property name="label">✏️ Edit To-Do</property></object></child><child><object class="GtkSeparatorMenuItem" id="delimiter2" /></child><child><object class="GtkMenuItem" id="task_0"><property name="label">Setup Gentoo</property></object></child><child><object class="GtkMenuItem" id="task_1"><property name="label">Anki</property></object></child></object></interface>

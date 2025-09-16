@@ -1,0 +1,178 @@
+{
+  "layer": "top",
+  "position": "top",
+  "spacing": 5,
+
+  "modules-left": [
+    "niri/workspaces",
+    //"mpris",
+    "custom/cava"
+    //"custom/playerctl"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    //"wireplumber",
+    "battery",
+    "niri/language",
+    "idle_inhibitor",
+    "tray",
+    "custom/power"
+  ],
+
+  "niri/workspaces": {
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": ""
+    },
+    "icon-size": 1,
+    "sort-by-number": true
+  },
+
+  "clock": {
+    "format": "{:%a.%m.%d.%y | %I:%M:%S %p}",
+    "interval": 1
+  },
+
+  "wireplumber": {
+    "format": "\udb81\udd7e {volume}%",
+    "max-volume": 100,
+    "scroll-step": 5
+  },
+
+  "battery": {
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "<span color='#e88939'>{icon}</span> {capacity}% ({time})",
+    "format-charging": "<span color='#e88939'>󱐋</span> {capacity}%",
+    "format-plugged": "<span color='#e88939'>{icon} </span> {capacity}% ({time})",
+    "format-icons": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ]
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": "\uf4bc  {used:0.1f}G"
+  },
+
+  "temperature": {
+    "format": "{temperatureC}°C"
+  },
+
+  "network": {
+    "format": "",
+    "format-ethernet": "\udb83\udc9d",
+    "format-wifi": "{icon}",
+    "format-disconnected": "\udb83\udc9c",
+    "format-icons": [
+      "\udb82\udd2f",
+      "\udb82\udd1f",
+      "\udb82\udd22",
+      "\udb82\udd25",
+      "\udb82\udd28"
+    ],
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-disconnected": "Disconnected"
+  },
+
+  "bluetooth": {
+    "format": "\udb80\udcaf",
+    "format-disabled": "\udb80\udcb2",
+    "format-connected": "\udb80\udcb1",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+  },
+
+  "niri/language": {
+    "format": "{short}"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 16
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "\udb80\udd76",
+      "deactivated": "\udb83\udfaa"
+    }
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/Scripts/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "poweroff",
+      "reboot": "reboot",
+      "suspend": "systemctl suspend",
+      "exit-niri": "pkill niri",
+      "hibernate": "systemctl hibernate"
+    }
+  },
+
+  "custom/mpris": {
+    "exec": "python3 -u ~/.config/waybar/Scripts/scrolling-mpris.py",
+    "format": "{text}",
+    "return-type": "json",
+    "on-click": "playerctl play-pause"
+  },
+
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "format-paused": "{status_icon} {title}",
+    "tooltip-format": "Playing: {title}",
+    "tooltip-format-paused": "Paused: {title}",
+    "player-icons": {
+      "default": "󰏤"
+    },
+    "status-icons": {
+      "paused": "󰐊"
+    },
+    "max-length": 1000
+  },
+  
+"custom/cava": {
+  "exec":  "~/.config/waybar/Scripts/WaybarCava.py",
+  //"interval": 0.1
+  //"format": "{}"
+  "on-click": "playerctl play-pause",
+  "on-click-right": "playerctl next",
+  "on-click-middle": "playerctl previous",
+  "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && ~/.config/waybar/Scripts/wp-vol.sh",
+  "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ~/.config/waybar/Scripts/wp-vol.sh"
+},
+  
+ "custom/playerctl": {
+    "format": "{}",
+    "return-type": "json",
+    "max-length": 30,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+  "on-click": "playerctl play-pause",
+  "on-click-right": "playerctl next",
+  "on-click-middle": "playerctl previous",
+    "scrolling": true,
+    "scroll-step": 1.0,
+    "smooth-scrolling-threshold": 1
+  }
+
+
+}
+
+
+
+
