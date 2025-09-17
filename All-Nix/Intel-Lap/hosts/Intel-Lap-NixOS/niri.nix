@@ -3,6 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     # Niri-centric tools & Waybar
+    waybar
     btop
     brightnessctl
     cava
@@ -21,10 +22,10 @@
   programs = {
     # Niri itself
     niri.enable  = true;
-    niri.package = pkgs.niri;
+    #niri.package = pkgs.niri;
 
     # Enable Waybar (moved here from main config)
-    waybar.enable = true;
+    #waybar.enable = true;
   };
 }
 

@@ -23,6 +23,7 @@
     xdg-utils
 
     # Terminal & CLI
+    alacritty
     helix
     wezterm
     fastfetch
@@ -80,7 +81,7 @@
     extraPortals  = [ pkgs.xdg-desktop-portal-gtk ];
     configPackages = [
       pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal
+      pkgs.xdg-desktop-portal-wlr
     ];
   };
 }
