@@ -41,6 +41,8 @@
     terminus_font
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
+    nerd-fonts.caskaydia-cove
+    nerd-fonts.fantasque-sans-mono
   ];
     services.gvfs.enable = true;
     services.tumbler.enable = true;
