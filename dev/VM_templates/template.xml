@@ -1,0 +1,295 @@
+<!-- Remember to use this template in a qemu://session!-->
+<!-- You can add certain values (uid, MAC, OS ID and more) from the generated xml file when you customize configuration before install! -->
+<!-- Root of a libvirt domain definition. Declares the qemu namespace and uses KVM -->
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  <!-- Your VM name -->
+  <name>add_vm_name</name>
+  <!--  Identifier for this VM -->
+  <uuid>add_vm_uid</uuid>
+
+  <!-- OS metadata -->
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <!-- Your OS ID -->
+      <libosinfo:os id="add_vm_id"/>
+    </libosinfo:libosinfo>
+  </metadata>
+
+  <!-- Maximum guest memory in KiB (8 GiB), change how you would like -->
+  <memory unit="KiB">8388608</memory>
+  <!-- Currently assigned memory in KiB (also 8 GiB), change how you would like -->
+  <currentMemory unit="KiB">8388608</currentMemory>
+
+  <!-- Number of virtual CPUs-->
+  <vcpu placement="static">6</vcpu>
+
+  <os>
+    <!-- Guest type hvm (full virtualization), x86_64 architecture (on Arch linux), Q35 chipset machine version 10.0 -->
+    <type arch="x86_64" machine="pc-q35-10.0">hvm</type>
+    <!-- Boot from first hard disk -->
+    <boot dev="hd"/>
+  </os>
+
+  <features>
+    <!-- ACPI -->
+    <acpi/>
+    <!-- APIC -->
+    <apic/>
+    <!-- Disable VMware backdoor port -->
+    <vmport state="off"/>
+    <!-- Enable System Management Mode (secure boot boot stuff) -->
+    <smm state="on"/>
+    <!-- Disable PS/2 controller to prefer virtio input (probably should remove) -->
+    <ps2 state="off"/>
+  </features>
+
+  <!-- Expose host CPU to guest for best performance, no feature checks, allow migration -->
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <!-- vCPU topology: 1 socket × 1 die × 1 cluster × 3 cores × 2 threads = 6 vCPUs, change how you would like. -->
+    <topology sockets="1" dies="1" clusters="1" cores="3" threads="2"/>
+  </cpu>
+
+  <!-- Guest clock uses UTC; explicitly enable HPET timer (remove the other two and only use HPET, old trick, probably not needed) -->
+  <clock offset="utc">
+    <timer name="hpet" present="yes"/>
+  </clock>
+
+  <!-- Behavior on power events -->
+  <on_poweroff>destroy</on_poweroff>  <!-- Quit the QEMU process when powered off -->
+  <on_reboot>restart</on_reboot>      <!-- Restart the VM on reboot -->
+  <on_crash>destroy</on_crash>        <!-- Exit if the guest crashes -->
+
+  <!-- Power management capabilities (suspend/hibernate disabled) -->
+  <pm>
+    <suspend-to-mem enabled="no"/>
+    <suspend-to-disk enabled="no"/>
+  </pm>
+
+  <devices>
+    <!-- Path to the QEMU system emulator binary -->
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+
+    <!-- Primary disk: qcow2 image on host, exposed as virtio block device -->
+    <disk type="file" device="disk">
+      <!-- Use qcow2 driver; enable discard/unmap so TRIM frees host space -->
+      <driver name="qemu" type="qcow2" discard="unmap"/>
+      <!-- VM storage file -->
+      <source file="add/path/to/vm/storage/file"/>
+      <!-- Guest-visible device name and bus -->
+      <target dev="vda" bus="virtio"/>
+      <!-- PCI address for this virtio-blk device -->
+      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
+    </disk>
+
+    <!-- Installation media as a virtual CD-ROM over SATA -->
+    <disk type="file" device="cdrom">
+      <!-- Raw ISO image driver -->
+      <driver name="qemu" type="raw"/>
+      <!-- ISO path on the host -->
+      <source file="add/path/to/iso/file"/>
+      <!-- Expose as first SATA disk (read-only) -->
+      <target dev="sda" bus="sata"/>
+      <readonly/>
+    </disk>
+
+    <!-- USB controller using modern xHCI with 15 ports -->
+    <controller type="usb" index="0" model="qemu-xhci" ports="15">
+      <!-- PCI address for the USB controller -->
+      <address type="pci" domain="0x0000" bus="0x03" slot="0x00" function="0x0"/>
+    </controller>
+
+    <!-- PCIe root complex and a bank of root ports for clean PCIe topology and hotplug -->
+    <controller type="pci" index="0" model="pcie-root"/>
+    <controller type="pci" index="1" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <!-- Chassis/port numbers identify distinct downstream ports -->
+      <target chassis="1" port="0x10"/>
+      <!-- Place the root port on the root bus at slot 0x02 fn 0 -->
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x0" multifunction="on"/>
+    </controller>
+    <controller type="pci" index="2" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="2" port="0x11"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x1"/>
+    </controller>
+    <controller type="pci" index="3" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="3" port="0x12"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x2"/>
+    </controller>
+    <controller type="pci" index="4" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="4" port="0x13"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x3"/>
+    </controller>
+    <controller type="pci" index="5" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="5" port="0x14"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x4"/>
+    </controller>
+    <controller type="pci" index="6" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="6" port="0x15"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x5"/>
+    </controller>
+    <controller type="pci" index="7" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="7" port="0x16"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x6"/>
+    </controller>
+    <controller type="pci" index="8" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="8" port="0x17"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x7"/>
+    </controller>
+    <controller type="pci" index="9" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="9" port="0x18"/>
+      <!-- Second bank of ports at slot 0x03, multifunction -->
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x0" multifunction="on"/>
+    </controller>
+    <controller type="pci" index="10" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="10" port="0x19"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x1"/>
+    </controller>
+    <controller type="pci" index="11" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="11" port="0x1a"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x2"/>
+    </controller>
+    <controller type="pci" index="12" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="12" port="0x1b"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x3"/>
+    </controller>
+    <controller type="pci" index="13" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="13" port="0x1c"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x4"/>
+    </controller>
+    <controller type="pci" index="14" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="14" port="0x1d"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x5"/>
+    </controller>
+    <controller type="pci" index="15" model="pcie-root-port">
+      <model name="pcie-root-port"/>
+      <target chassis="15" port="0x1e"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x6"/>
+    </controller>
+
+    <!-- Bridge to provide a legacy PCI bus for non-PCIe devices if needed -->
+    <controller type="pci" index="16" model="pcie-to-pci-bridge">
+      <model name="pcie-pci-bridge"/>
+      <address type="pci" domain="0x0000" bus="0x07" slot="0x00" function="0x0"/>
+    </controller>
+
+    <!-- AHCI SATA controller (ICH9/Q35) -->
+    <controller type="sata" index="0">
+      <!-- Typical ICH9 SATA location at 00:1f.2 -->
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
+    </controller>
+
+    <!-- Virtio serial controller -->
+    <controller type="virtio-serial" index="0">
+      <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
+    </controller>
+
+    <!-- Virtio SCSI controller (available for attaching SCSI/virtio-scsi disks later) -->
+    <controller type="scsi" index="0" model="virtio-scsi">
+      <address type="pci" domain="0x0000" bus="0x08" slot="0x00" function="0x0"/>
+    </controller>
+
+    <!-- User-mode networking: NAT out to host network without a bridge -->
+    <interface type="user">
+      <!-- Stable MAC address for the NIC -->
+      <mac address="add_vm_MAC_address"/>
+      <!-- Virtio-net device for performance -->
+      <model type="virtio"/>
+      <!-- PCI address of the NIC -->
+      <address type="pci" domain="0x0000" bus="0x10" slot="0x01" function="0x0"/>
+    </interface>
+
+    <!-- ISA-style serial port -->
+    <serial type="pty">
+      <target type="isa-serial" port="0">
+        <model name="isa-serial"/>
+      </target>
+    </serial>
+
+    <!-- Map the serial PTY as the primary text console -->
+    <console type="pty">
+      <target type="serial" port="0"/>
+    </console>
+
+    <!-- Virtio console channel for modern guest console I/O -->
+    <console type="pty">
+      <target type="virtio" port="1"/>
+    </console>
+
+    <!-- Virtio input devices (keyboard, mouse, tablet) -->
+    <input type="keyboard" bus="virtio">
+      <address type="pci" domain="0x0000" bus="0x09" slot="0x00" function="0x0"/>
+    </input>
+    <input type="mouse" bus="virtio">
+      <address type="pci" domain="0x0000" bus="0x0a" slot="0x00" function="0x0"/>
+    </input>
+    <input type="tablet" bus="virtio">
+      <address type="pci" domain="0x0000" bus="0x0b" slot="0x00" function="0x0"/>
+    </input>
+
+    <!-- Use SDL window for graphics output, enable OpenGL in the display backend -->
+    <graphics type="sdl">
+      <gl enable="yes"/>
+    </graphics>
+
+    <!-- Virtio sound device with 2 streams -->
+    <sound model="virtio" streams="2">
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1b" function="0x0"/>
+    </sound>
+
+    <!-- Audio backend selection: SDL audio (pairs with graphics type sdl), replace with pipewire/pulseaudio for GTK instead -->
+    <audio id="1" type="sdl"/>
+
+    <!-- Disable libvirt-managed video device; video is added via custom qemu args below -->
+    <video>
+      <model type="none"/>
+    </video>
+
+    <!-- Hardware watchdog (Intel TCO) that resets the VM if it isn’t pinged -->
+    <watchdog model="itco" action="reset"/>
+
+    <!-- Virtio memory balloon -->
+    <memballoon model="virtio">
+      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
+    </memballoon>
+
+    <!-- Virtio RNG -->
+    <rng model="virtio">
+      <backend model="random">/dev/urandom</backend>
+      <address type="pci" domain="0x0000" bus="0x06" slot="0x00" function="0x0"/>
+    </rng>
+  </devices>
+
+  <!-- Additional raw qemu command-line and environment customizations -->
+  <qemu:commandline>
+    <!-- Remove default VGA device so we can provide our own -->
+    <qemu:arg value="-vga"/>
+    <qemu:arg value="none"/>
+
+    <!-- Use SDL display backend with OpenGL enabled, replace sdl with gtk for gtk instead -->
+    <qemu:arg value="-display"/>
+    <qemu:arg value="sdl,gl=on"/>
+
+    <!-- Add a virtio GPU with OpenGL (virgl) acceleration, check qemu documentation for more options -->
+    <qemu:arg value="-device"/>
+    <qemu:arg value="virtio-vga-gl,id=vgpu"/>
+
+    <!-- Environment for SDL on Wayland, check wayland display value with "echo $WAYLAND_DISPLAY" -->
+    <qemu:env name="XDG_RUNTIME_DIR" value="/run/user/1000"/>
+    <qemu:env name="SDL_VIDEODRIVER" value="wayland"/>
+    <qemu:env name="WAYLAND_DISPLAY" value="wayland-1"/>
+  </qemu:commandline>
+</domain>
+
