@@ -32,7 +32,6 @@
     # Apps for your Laptop
     gparted
     kdePackages.kate
-    spotify
   ];
 
   fonts.packages = with pkgs; [
