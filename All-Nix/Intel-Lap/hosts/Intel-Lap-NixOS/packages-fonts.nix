@@ -30,6 +30,7 @@
 
     # Apps for your Laptop
     gparted
+    kdePackages.kate
   ];
 
   fonts.packages = with pkgs; [
@@ -47,7 +48,7 @@
     services.gvfs.enable = true;
     services.tumbler.enable = true;
   programs = {
-    # Browsers & Editors
+    # Browsers
     firefox.enable   = true;
 
     # Version Control

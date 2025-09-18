@@ -3,14 +3,19 @@
 {
   environment.systemPackages = with pkgs; [
     # Niri-centric tools & Waybar
+    xwayland-satellite
+    bibata-cursors
     waybar
+    swayidle
+    swaylock
     btop
     brightnessctl
     cava
     gthumb
     networkmanagerapplet
     playerctl
-    polkit_gnome
+    polkit
+    lxqt.lxqt-policykit
     kdePackages.qt6ct
     kdePackages.qtwayland
     rofi
