@@ -1,2 +1,0 @@
-qemu-system-x86_64 -machine accel=kvm,vmport=off -cpu host -s
-andbox on -m 8G -smp 6,sockets=1,cores=3,threads=2 -cdrom ubuntu-24.04.3-desktop-amd64.iso -boot menu=on -nic user,ipv6=off -drive file=storage.img,if=virtio -device virtio-scsi-pci -device virtio-vga-gl -display gtk,gl=on -device usb-ehci -device usb-tablet -audiodev pipewire,id=audiodev1 -device intel-hda -device hda-micro,audiodev=audiodev1
