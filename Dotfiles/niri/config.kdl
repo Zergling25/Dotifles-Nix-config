@@ -6,11 +6,11 @@ input {
         }
 
         // Enable numlock on startup, omitting this setting disables it.
-        numlock
+        //numlock
     }
 
-    
-    touchpad {
+
+       touchpad {
         // off
         tap
         // dwt
@@ -49,23 +49,6 @@ input {
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 // delete the /- to enable the following node/setting
-/-output "eDP-1" {
-    // Uncomment this line to disable this output.
-    // off
-
-    
-    mode "1920x1080@60.049"
-
-    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 1
-
-    // Transform allows to rotate the output counter-clockwise
-   transform  "normal"
-
-    // Position of the output in the global coordinate space.
-    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
-    position x=1280 y=0
-}
 
 layout {
     // Set gaps around windows in logical pixels.
@@ -139,7 +122,7 @@ layout {
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        //off
+        off
 
         width 4
         active-color "#ffffff"
@@ -210,6 +193,10 @@ layout {
       } 
 }
 
+cursor {
+  xcursor-theme "Bibata-Modern-Classic"             
+  xcursor-size 24
+}
 
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
@@ -226,7 +213,7 @@ spawn-at-startup "nm-applet"
 // Notifications
 spawn-at-startup "mako"
 //Polkit
-spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "lxqt-policykit-agent"
 //Wallpaper
 spawn-at-startup "swww-daemon"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "600" "niri msg action power-off-monitors" "before-sleep" "swaylock -f"
