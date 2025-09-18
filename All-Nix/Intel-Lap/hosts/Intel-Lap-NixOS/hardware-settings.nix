@@ -32,7 +32,7 @@
   zramSwap = {
     enable = true;
     priority = 100;
-    memoryPercent = 30;
+    memoryPercent = 100;
     swapDevices = 1;
     algorithm = "zstd";
   };

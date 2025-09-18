@@ -21,6 +21,7 @@
     wget
     xdg-user-dirs
     xdg-utils
+    dconf-editor
 
     # Terminal & CLI
     alacritty
@@ -31,6 +32,7 @@
     # Apps for your Laptop
     gparted
     kdePackages.kate
+    spotify
   ];
 
   fonts.packages = with pkgs; [
